@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./SignIn.css";
 import {signIn} from "../../services/authentification.service";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../utils/context";
 
 export default function SignIn() {
+  const auth = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +26,8 @@ export default function SignIn() {
   };
 
   const onLoginBtnClick = () => {
-    signIn(username, password, rememberme).then(() => {
+    signIn(username, password, rememberme).then((user) => {
+      auth.login(user);
       navigate("/profile");
     });
   }

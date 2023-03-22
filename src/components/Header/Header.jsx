@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import logo from '../../assets/argentBankLogo.png'
 import './Header.css'
+import { useState } from 'react'
+import { AuthContext } from '../../utils/context'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //   import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
 export default function Header() {
+  const {currentUser} = useContext(AuthContext);
+
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to="/">
@@ -17,12 +21,11 @@ export default function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        <NavLink className="main-nav-item" to="/login">
+        {!currentUser && <NavLink className="main-nav-item" to="/login">
           <i className="fa fa-user-circle"></i>
-          {/* <FontAwesomeIcon icon={faUserCircle} /> */}
-          {/* <FontAwesomeIcon icon="fa fa-user-circle"/> */}
           Sign In
-        </NavLink>
+        </NavLink>}
+        {currentUser && <NavLink to="/profile">{currentUser.firstName} {currentUser.lastName}</NavLink>}
       </div>
     </nav>
   )

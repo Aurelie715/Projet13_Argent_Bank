@@ -4,14 +4,29 @@ const API_URL = "http://localhost:3001/api/v1/user/";
 
 const signIn = async (email, password, rememberme) => {
   const storage = rememberme ? localStorage : sessionStorage;
-  return axios
-    .post(API_URL + "login", {
-      email,
-      password,
-    })
-    .then((response) => {
-      storage.setItem("token", response.data.body.token);
-    });
+  const response = await axios.post(API_URL + "login", { email, password });
+
+  storage.setItem("token", response.data.body.token);
+
+  return await getProfileInfo();
 };
 
-export { signIn };
+const getProfileInfo = async () => {
+  const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+  if (!token) {
+    return null;
+  }
+  const profileResponse = await axios.post(
+    API_URL + "profile",
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+
+  return profileResponse.data.body;
+};
+
+export { signIn, getProfileInfo };
