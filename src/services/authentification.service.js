@@ -29,4 +29,9 @@ const getProfileInfo = async () => {
   return profileResponse.data.body;
 };
 
-export { signIn, getProfileInfo };
+const signOut = async () => {
+  localStorage.removeItem("token");
+  sessionStorage.removeItem("token");
+};
+
+export { signIn, getProfileInfo, signOut };

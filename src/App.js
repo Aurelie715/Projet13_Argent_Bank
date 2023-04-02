@@ -6,13 +6,18 @@ import SignIn from "./pages/SignIn/SignIn";
 import User from "./pages/User/User";
 import { AuthContext } from "./utils/context";
 import { useEffect, useState } from "react";
-import { getProfileInfo } from "./services/authentification.service";
+import { getProfileInfo, signOut } from "./services/authentification.service";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   const login = (user) => {
     setCurrentUser(user);
+  };
+
+  const logout = () => {
+    setCurrentUser(null);
+    signOut();
   };
 
   useEffect(() => {
@@ -22,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

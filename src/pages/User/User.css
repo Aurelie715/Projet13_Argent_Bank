@@ -10,3 +10,21 @@
     font-weight: bold;
     padding: 10px;
 }
+
+.edit-name {
+    margin-bottom: 30px;
+}
+
+.input-name {
+    padding: 5px;
+    margin: 10px;
+}
+
+.name-button{
+    width: 90px;
+    margin: 10px;
+}
+
+.hidden {
+    display: none;
+}

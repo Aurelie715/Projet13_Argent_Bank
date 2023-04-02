@@ -27,7 +27,7 @@ export default function SignIn() {
 
   const onLoginBtnClick = () => {
     signIn(username, password, rememberme).then((user) => {
-      auth.login(user);
+      auth.login(user); //TO DO remplacer le contexte par redux toolkit
       navigate("/profile");
     });
   }
