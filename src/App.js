@@ -4,30 +4,24 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import SignIn from "./pages/SignIn/SignIn";
 import User from "./pages/User/User";
-import { AuthContext } from "./utils/context";
-import { useEffect, useState } from "react";
-import { getProfileInfo, signOut } from "./services/authentification.service";
+import { useEffect } from "react";
+import { getProfileInfo } from "./services/authentification.service";
+import { useDispatch } from "react-redux";
+import { modifyName } from "./store";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
-
-  const login = (user) => {
-    setCurrentUser(user);
-  };
-
-  const logout = () => {
-    setCurrentUser(null);
-    signOut();
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getProfileInfo().then((user) => {
-      setCurrentUser(user);
+      if (user) {
+        dispatch(modifyName(`${user.firstName} ${user.lastName}`));
+      }
     });
-  }, []);
+  }, [dispatch]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -35,7 +29,7 @@ function App() {
         <Route path="/profile" element={<User />} />
       </Routes>
       <Footer />
-    </AuthContext.Provider>
+    </>
   );
 }
 

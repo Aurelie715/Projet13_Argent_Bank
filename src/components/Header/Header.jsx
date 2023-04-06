@@ -1,12 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 import "./Header.css";
-import { AuthContext } from "../../utils/context";
+import { useDispatch, useSelector } from "react-redux";
+import { modifyName } from "../../store";
+import { signOut } from "../../services/authentification.service";
 
 
 export default function Header() {
-  const { currentUser, logout } = useContext(AuthContext);
+  const name = useSelector(state => state.name);
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(modifyName(""));
+    signOut();
+  };
   
 // ligne 27 au lieu d'aller cherhcer dans le context allez chercher dans redux toolkit
   return (
@@ -16,19 +24,19 @@ export default function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {!currentUser && (
+        {!name && (
           <NavLink className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             Sign In
           </NavLink>
         )}
-        {currentUser && (
+        {name && (
           <NavLink className="main-nav-item" to="/profile">
-            {currentUser.firstName} 
+            {name} 
           </NavLink>
         )}
       </div>
-        {currentUser &&
+        {name &&
           (<Link className="main-nav-item" to="/" onClick={logout}>
             <i className="fa fa-sign-out"></i>
             Sign Out
