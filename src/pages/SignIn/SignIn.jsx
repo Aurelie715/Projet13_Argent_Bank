@@ -11,6 +11,7 @@ export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberme, setRememberme] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -27,10 +28,14 @@ export default function SignIn() {
   };
 
   const onLoginBtnClick = () => {
-    signIn(username, password, rememberme).then((user) => {
-      dispatch(modifyName(`${user.firstName} ${user.lastName}`)); 
-      navigate("/profile");
-    });
+    signIn(username, password, rememberme)
+      .then((user) => {
+        dispatch(modifyName({firstName: user.firstName, lastName: user.lastName})); 
+        navigate("/profile");
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.message)
+      });
   }
 
   return (
@@ -42,6 +47,7 @@ export default function SignIn() {
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input type="text" id="username" value={username} onChange={onUsernameChange}/>
+            
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
@@ -50,7 +56,9 @@ export default function SignIn() {
           <div className="input-remember">
             <input type="checkbox" id="remember-me" onChange={onRemembermeChange}/>
             <label htmlFor="remember-me">Remember me</label>
+            
           </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <button className="sign-in-button" type="button" onClick={onLoginBtnClick}>Sign In</button>
         </form>
       </section>

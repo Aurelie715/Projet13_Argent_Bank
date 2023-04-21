@@ -12,7 +12,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(modifyName(""));
+    dispatch(modifyName({}));
     signOut();
   };
   
@@ -24,24 +24,25 @@ export default function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {!name && (
+        {!name.firstName && (
           <NavLink className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             Sign In
           </NavLink>
         )}
-        {name && (
+        {name.firstName && (
           <NavLink className="main-nav-item" to="/profile">
-            {name} 
+            <i className="fa fa-user-circle"></i>
+            {name.firstName} 
           </NavLink>
         )}
-      </div>
-        {name &&
+        {name.firstName &&
           (<Link className="main-nav-item" to="/" onClick={logout}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </Link>)
         }
+      </div>
     </nav>
   );
 }

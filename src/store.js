@@ -2,9 +2,9 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 // initialeState : le nom et le prénom actuel
 // tranche de mon état global qui concerne le nom d'utilisateur
-const nameSlice = createSlice({
-  name: "name",
-  initialState: "",
+const userSlice = createSlice({
+  name: "user",
+  initialState: { firstName: "", lastName: "" },
   // reducer : interactions possibles
   // fonction comprenant l'état actuel / état initial et les actions qu'on me permet de performer dessus
   reducers: {
@@ -15,10 +15,10 @@ const nameSlice = createSlice({
   },
 });
 
-export const { modifyName } = nameSlice.actions;
+export const { modifyName } = userSlice.actions;
 
 export const store = configureStore({
   reducer: {
-    name: nameSlice.reducer,
+    name: userSlice.reducer,
   },
 });

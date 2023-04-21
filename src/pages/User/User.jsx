@@ -4,6 +4,7 @@ import "./User.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modifyName } from "../../store";
+import { updateProfile } from "../../services/user.service";
 
 export default function User() {
   const name = useSelector(state => state.name);
@@ -28,7 +29,8 @@ export default function User() {
 
   const saveNewName = () => {
     showFormEditName();
-    dispatch(modifyName(`${firstname} ${lastname}`));
+    dispatch(modifyName({firstName: firstname, lastName: lastname}));
+    updateProfile(firstname, lastname)
   }
   // TODO à la place de Tony Jarvis utiliser redux Toolkit allez chercher la valeur dans le store
   return (
@@ -37,7 +39,7 @@ export default function User() {
         <h1>
           Welcome back
           <br />
-          <span className={editNameDisplay ? "hidden" : ""}>{name}!</span>
+          <span className={editNameDisplay ? "hidden" : ""}>{name.firstName} {name.lastName}!</span>
         </h1>
         <button id="edit-button" className={`edit-button ${editNameDisplay ? "hidden" : ""}`} onClick={showFormEditName}>
           Edit Name
@@ -45,8 +47,8 @@ export default function User() {
       </div>
       <div className={`edit-name ${editNameDisplay ? "" : "hidden"}`}>
         <div>
-          <input type="text" className="input-name" value={firstname} onChange={onFirstnameChange}/>
-          <input type="text" className="input-name" value={lastname} onChange={onLastnameChange}/>
+          <input type="text" className="input-name" placeholder={name.firstName} value={firstname} onChange={onFirstnameChange}/>
+          <input type="text" className="input-name" placeholder={name.lastName} value={lastname} onChange={onLastnameChange}/>
         </div>
         <div>
           <button className="edit-button name-button" onClick={saveNewName}>Save</button>

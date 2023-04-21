@@ -20,6 +20,10 @@
     margin: 10px;
 }
 
+.input-name::placeholder {
+    opacity: 0.5;
+}
+
 .name-button{
     width: 90px;
     margin: 10px;

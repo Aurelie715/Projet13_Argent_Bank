@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     getProfileInfo().then((user) => {
       if (user) {
-        dispatch(modifyName(`${user.firstName} ${user.lastName}`));
+        dispatch(modifyName({ firstName: user.firstName, lastName: user.lastName }));
       }
     });
   }, [dispatch]);
@@ -27,6 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/profile" element={<User />} />
+        <Route path="*" element={<div>Error404</div>} />
       </Routes>
       <Footer />
     </>
