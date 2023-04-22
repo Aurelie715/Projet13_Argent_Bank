@@ -11,11 +11,13 @@ const signIn = async (email, password, rememberme) => {
   return await getProfileInfo();
 };
 
+//info de l'utilisateur courant
 const getProfileInfo = async () => {
   const token = sessionStorage.getItem("token") || localStorage.getItem("token");
   if (!token) {
     return null;
   }
+
   const profileResponse = await axios.post(
     API_URL + "profile",
     {},
@@ -34,4 +36,8 @@ const signOut = async () => {
   sessionStorage.removeItem("token");
 };
 
-export { signIn, getProfileInfo, signOut };
+const isLoggedIn = () => {
+  return !!(sessionStorage.getItem("token") || localStorage.getItem("token"));
+};
+
+export { signIn, getProfileInfo, signOut, isLoggedIn };

@@ -16,7 +16,6 @@ export default function Header() {
     signOut();
   };
   
-// ligne 27 au lieu d'aller cherhcer dans le context allez chercher dans redux toolkit
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to="/">

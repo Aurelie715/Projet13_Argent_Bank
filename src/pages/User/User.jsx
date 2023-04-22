@@ -32,7 +32,7 @@ export default function User() {
     dispatch(modifyName({firstName: firstname, lastName: lastname}));
     updateProfile(firstname, lastname)
   }
-  // TODO à la place de Tony Jarvis utiliser redux Toolkit allez chercher la valeur dans le store
+  
   return (
     <main className="main bg-dark">
       <div className="header">

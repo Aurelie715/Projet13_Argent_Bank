@@ -8,7 +8,8 @@ const userSlice = createSlice({
   // reducer : interactions possibles
   // fonction comprenant l'état actuel / état initial et les actions qu'on me permet de performer dessus
   reducers: {
-    // action : c'est un objet qui contient 2 infos : quelle est la tâche (type) que je veux faire et les données (payload) dont je vais avoir besoin
+    // action : c'est un objet qui contient 2 infos :
+    // quelle est la tâche (type) que je veux faire et les données (payload) dont je vais avoir besoin
     modifyName: (state, action) => {
       return action.payload;
     },

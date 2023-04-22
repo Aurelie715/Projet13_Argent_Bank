@@ -7,13 +7,12 @@ import { modifyName } from "../../store";
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberme, setRememberme] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const navigate = useNavigate();
 
   const onRemembermeChange = (event) => {
     setRememberme(event.currentTarget.value)
@@ -30,7 +29,7 @@ export default function SignIn() {
   const onLoginBtnClick = () => {
     signIn(username, password, rememberme)
       .then((user) => {
-        dispatch(modifyName({firstName: user.firstName, lastName: user.lastName})); 
+        dispatch(modifyName({firstName: user.firstName, lastName: user.lastName}));
         navigate("/profile");
       })
       .catch((error) => {
