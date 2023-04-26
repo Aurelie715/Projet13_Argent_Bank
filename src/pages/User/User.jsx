@@ -28,9 +28,11 @@ export default function User() {
   };
 
   const saveNewName = () => {
+    const firstName = firstname || name.firstName;
+    const lastName = lastname || name.lastName;
     showFormEditName();
-    dispatch(modifyName({firstName: firstname, lastName: lastname}));
-    updateProfile(firstname, lastname)
+    dispatch(modifyName({firstName, lastName}));
+    updateProfile(firstName, lastName)
   }
   
   return (
